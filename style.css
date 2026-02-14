@@ -1,0 +1,207 @@
+/* --- DESIGN RENDSZER (Sötét + Sárga) --- */
+:root {
+    /* Sötét háttér (nem teljesen fekete, elegánsabb sötétszürke) */
+    --bg-color: #121212; 
+    
+    /* A Mrevesz.com stílusú arany/sárga (Módosíthatod a kódját itt) */
+    --accent: #D4AF37; 
+    
+    /* Szövegszínek */
+    --text-main: #ffffff;
+    --text-muted: #aaaaaa;
+    
+    /* Gomb szöveg szín hover állapotban (fekete, hogy olvasható legyen a sárgán) */
+    --btn-text-hover: #000000;
+
+    /* Tipográfia */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* Animációk */
+    --anim-duration: 0.8s;
+}
+
+/* Alap beállítások */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 60px 20px;
+    overflow-x: hidden; /* Vízszintes csúszka tiltása animációnál */
+}
+
+/* --- ANIMÁCIÓK --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    opacity: 0;
+    animation: fadeInUp var(--anim-duration) ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* --- TARTALOM --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+/* Profilkép */
+.profile-wrapper {
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--accent); /* Sárga keret a kép körül */
+    filter: grayscale(100%);
+    transition: all 0.5s ease;
+}
+
+.profile-img:hover {
+    filter: grayscale(0%);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); /* Sárga ragyogás */
+}
+
+/* Szövegek */
+h1 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent); /* Az alcím sárga lett */
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+}
+
+/* Idézet */
+.quote-box {
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+    border-left: 2px solid var(--accent); /* Sárga díszcsík bal oldalon */
+}
+
+.quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+/* --- GOMBOK (Sárga outline stílus) --- */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.link-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 18px 24px;
+    background: transparent;
+    color: var(--accent); /* Alapból sárga szöveg */
+    border: 1px solid var(--accent); /* Sárga keret */
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Hover animáció háttér */
+.link-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Balról jobbra töltés */
+    height: 100%;
+    background-color: var(--accent); /* Sárga háttér */
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: -1;
+}
+
+/* Hover állapot */
+.link-btn:hover {
+    color: var(--btn-text-hover); /* Fekete szöveg a sárgán */
+    padding-left: 35px; /* Kicsit nagyobb elmozdulás */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.link-btn:hover::after {
+    width: 100%;
+}
+
+/* Ikonok a gomb mellett (opcionális unicode nyilak) */
+.link-btn::before {
+    content: '▶';
+    position: absolute;
+    left: 10px;
+    opacity: 0;
+    transition: 0.3s;
+    color: var(--btn-text-hover);
+}
+
+.link-btn:hover::before {
+    opacity: 1;
+}
+
+/* --- LÁBLÉC --- */
+footer {
+    margin-top: 4rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    letter-spacing: 1px;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
