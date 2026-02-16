@@ -240,8 +240,9 @@ footer a {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: color 0.18s ease, transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
+    z-index: 1; /* keep icons above the fill */
     overflow: hidden;
     text-decoration: none;
 }
@@ -250,37 +251,38 @@ footer a {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0; /* left-to-right fill */
     width: 0%;
     height: 100%;
     background-color: var(--accent);
-    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 0;
+    transition: width 0.32s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: -1; /* behind the icon */
     border-radius: 50%;
 }
 
-.social-icon:hover,
-.social-icon:active {
-    color: var(--btn-text-hover);
-}
-
 .social-icon:hover::after,
-.social-icon:active::after {
+.social-icon:active::after,
+.social-icon:focus::after {
     width: 100%;
 }
 
+/* change icon color after the fill completes (delay handled by transition on .social-icon) */
+.social-icon:hover,
+.social-icon:active,
+.social-icon:focus {
+    color: var(--btn-text-hover);
+}
+
 .social-icon i,
-.social-icon:before {
-    z-index: 1;
+.social-icon::before,
+.social-icon svg {
+    position: relative;
+    z-index: 2; /* ensure icon sits above the fill */
 }
 
 .footer-up {
     margin-top: 2.5rem;
     margin-bottom: 24px;
-}
-
-.social-icon {
-    /* ...existing code... */
 }
 
 /* --- SOCIAL BUTTONS --- */
